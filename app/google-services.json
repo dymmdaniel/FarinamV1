@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "863629061651",
+    "firebase_url": "https://farinam-27055-default-rtdb.firebaseio.com",
+    "project_id": "farinam-27055",
+    "storage_bucket": "farinam-27055.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:863629061651:android:e1242f49352fb7673719e6",
+        "android_client_info": {
+          "package_name": "edu.ucentral.edu.farinamp5"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "863629061651-t7rnbv1up4ecjsf8dp1t1uao11gjc078.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtpLX6wDgiGX1Nrb7vGx7M8ueirGWPtOg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "863629061651-t7rnbv1up4ecjsf8dp1t1uao11gjc078.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:863629061651:android:e25e628c0db3f56c3719e6",
+        "android_client_info": {
+          "package_name": "edu.ucentral.farinamv1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "863629061651-t7rnbv1up4ecjsf8dp1t1uao11gjc078.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtpLX6wDgiGX1Nrb7vGx7M8ueirGWPtOg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "863629061651-t7rnbv1up4ecjsf8dp1t1uao11gjc078.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

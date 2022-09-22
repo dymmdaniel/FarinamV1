@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Colores para el tema Normal-->
+    <color name="color_primero">#ffa43a</color>
+    <color name="color_segundo">#ffbf75</color>
+    <color name="color_tercero">#759eff</color>
+    <color name="color_cuarto">#75c7ff</color>
+    <color name="color_quinto">#525558</color>
+    <color name="color_sexto">#64FB46</color>
+
+    <!--Colores para el tema Dark-->
+    <color name="dark_color_primero">#291710</color>
+    <color name="dark_color_segundo">#3c2619</color>
+    <color name="dark_color_tercero">#553a24</color>
+    <color name="dark_color_cuarto">#755533</color>
+    <color name="dark_color_quinto">#9b7945</color>
+    <color name="dark_color_sexto">#9F855E</color>
+
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
