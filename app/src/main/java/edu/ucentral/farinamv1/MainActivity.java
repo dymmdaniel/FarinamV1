@@ -17,16 +17,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import edu.ucentral.farinamv1.model.Usuario;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private ProgressBar progressBarBusqueda;
     private SearchView buscador;
     private Button btnMenuMain;
+
+    private TextView nombreUsuario;
+    private CircleImageView iconUsuario;
 
     private FirebaseAuth mAuth;
 
@@ -39,8 +46,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         progressBarBusqueda=findViewById(R.id.progressBarBusqueda);
         buscador=findViewById(R.id.buscador);
+        iconUsuario=findViewById(R.id.usuarioImagen);
         btnMenuMain=findViewById(R.id.btn_menu_main);
+
         progressBarBusqueda.setVisibility(View.GONE);
+
 
         buscador.setOnSearchClickListener(new View.OnClickListener() {
             @Override
@@ -69,10 +79,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         View headerView= navigationView.getHeaderView(0);
+        nombreUsuario=headerView.findViewById(R.id.usuarioNombrePerfil);
+    }
 
+    private void buscarNombre() {
+        String usuarioId=mAuth.getCurrentUser().getUid();
+        /*databaseReference.child("Usuario").orderByChild("usuarioId").equalTo(usuarioId).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Usuario usuario=snapshot.getValue(Usuario.class);
+                nombreUsuario.setText(usuario.getNombre());
+            }
 
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
+            }
 
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                nombreUsuario.setText("");
+            }
+        });*/
     }
 
     @Override
@@ -115,16 +153,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void cerrarSesion(){
         mAuth.signOut();
+        ViewLogin();
     }
 
 
     @Override
     protected void onStart(){
         super.onStart();
-
         FirebaseUser currentUser= FirebaseAuth.getInstance().getCurrentUser();
         if(currentUser == null){
             ViewLogin();
+        }else{
+            buscarNombre();
         }
     }
 
