@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Farinam</string>
     <string name="logo_farinam">Logo Farinam</string>
+    <string name="crear_una_cuenta">Crear una cuenta</string>
+    <string name="correo_hint">Correo</string>
+    <string name="contrasena_hint">Contraseña</string>
+    <string name="hola">¡Hola!</string>
+    <string name="disfruta_de_nuevos_sabores">¡Disfruta de nuevos sabores!</string>
+    <string name="nombres">Nombres</string>
+    <string name="telefono">Teléfono</string>
+    <string name="repite_tu_contrasena">Repite tu contraseña</string>
+    <string name="navigation_drawer_open">Abrir el Menu de usuario</string>
+    <string name="navigation_drawer_close">Cerrar el Menu de usuario</string>
+    <string name="nombre">Nombre</string>
 </resources>

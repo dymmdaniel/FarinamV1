@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="logo_farinam">Logo Farinam</string>
+    <string name="nombres">Nombres</string>
+    <string name="telefono">Telefono</string>
+    <string name="repite_tu_contrasena">Repite tu contraseña</string>
+    <string name="nombre">Nombre</string>
 </resources>

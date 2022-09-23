@@ -23,7 +23,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class Login extends AppCompatActivity {
 
     private TextView btnRegistrarme;
-    private TextView btnIngresar;
+    private Button btnIngresar;
+    private TextView btnOlvidar;
     private EditText Txcorreo;
     private EditText Txcontrasena;
     private ProgressBar barraProgreso;
@@ -37,11 +38,12 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
 
-        Txcorreo=findViewById(R.id.tx_correo);
+        Txcorreo=findViewById(R.id.tx_correo_recuperar);
         Txcontrasena=findViewById(R.id.tx_contrasena);
         btnRegistrarme=findViewById(R.id.btn_registrarme);
-        btnIngresar=findViewById(R.id.btn_ingresar);
-        barraProgreso=findViewById(R.id.progressBar);
+        btnIngresar=findViewById(R.id.btn_iniciar_sesion);
+        barraProgreso=findViewById(R.id.progressBarContra);
+        btnOlvidar=findViewById(R.id.btn_olvidar);
 
         barraProgreso.setVisibility(View.INVISIBLE);
 
@@ -87,6 +89,12 @@ public class Login extends AppCompatActivity {
                 barraProgreso.setVisibility(View.INVISIBLE);
             }
         });
+        btnOlvidar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewContra();
+            }
+        });
 
     }
     public boolean iniciarSesion(){
@@ -116,7 +124,10 @@ public class Login extends AppCompatActivity {
         startActivity(intent);
         finish(); // terminar esta view
     }
-
+    public void viewContra(){
+        Intent intent = new Intent(Login.this,OlvidarContra.class);
+        startActivity(intent);
+    }
     @Override
     protected void onStart(){
         super.onStart();

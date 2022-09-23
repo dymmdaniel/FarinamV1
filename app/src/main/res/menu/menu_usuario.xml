@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_perfilU"
+            android:icon="@drawable/ic_account"
+            android:title="Perfil"/>
+
+        <item
+            android:id="@+id/nav_favoritos"
+            android:icon="@drawable/ic_favorite"
+            android:title="Mis favoritos"/>
+
+        <item
+            android:id="@+id/nav_lista"
+            android:icon="@drawable/ic_hecklist"
+            android:title="Mi lista"/>
+
+        <item
+            android:id="@+id/nav_cronometro"
+            android:icon="@drawable/ic_timer"
+            android:title="Cronometro"/>
+
+        <item
+            android:id="@+id/nav_directorio"
+            android:icon="@drawable/ic_store"
+            android:title="Directorio"/>
+
+        <item
+            android:id="@+id/nav_salirU"
+            android:icon="@drawable/ic_logout"
+            android:title="Cerrar sesión" />
+    </group>
+</menu>

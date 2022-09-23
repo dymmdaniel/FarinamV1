@@ -3,10 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Practica/FarinamV1/app/src/main/res/drawable-v24/ic_timer.xml" value="0.285" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/Practica/FarinamV1/app/src/main/res/drawable/ic_launcher_background.xml" value="0.285" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Practica/FarinamV1/app/src/main/res/layout-v29/activity_main.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/Practica/FarinamV1/app/src/main/res/layout/activity_login.xml" value="0.33" />
-        <entry key="..\:/Users/danie/AndroidStudioProjects/Practica/FarinamV1/app/src/main/res/layout/activity_main.xml" value="0.3759057971014493" />
-        <entry key="..\:/Users/danie/AndroidStudioProjects/Practica/FarinamV1/app/src/main/res/layout/activity_registro_usuario.xml" value="0.3759057971014493" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Practica/FarinamV1/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Practica/FarinamV1/app/src/main/res/layout/activity_olvidar_contra.xml" value="0.3759057971014493" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Practica/FarinamV1/app/src/main/res/layout/activity_perfil.xml" value="0.33" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Practica/FarinamV1/app/src/main/res/layout/activity_registro_usuario.xml" value="0.22" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Practica/FarinamV1/app/src/main/res/layout/nav_header_main.xml" value="0.2866847826086957" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Practica/FarinamV1/app/src/main/res/menu/menu.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Practica/FarinamV1/app/src/main/res/menu/menu_usuario.xml" value="0.38697916666666665" />
       </map>
     </option>
   </component>

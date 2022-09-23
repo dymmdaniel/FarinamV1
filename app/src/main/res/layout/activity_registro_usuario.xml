@@ -4,14 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/background"
     tools:context=".RegistroUsuario">
+
+    <ProgressBar
+        android:id="@+id/progressBarRegistro"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="373dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="40dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/color_primero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/farinam_logo2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="72dp"
         android:contentDescription="@string/logo_farinam"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,10 +31,11 @@
         app:srcCompat="@drawable/farinam_icono" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btn_registrarme_primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_registrarme"
+        android:background="@drawable/btn_primary"
+        android:text="Registrarme"
         android:textColor="@color/white"
         android:textColorHighlight="@color/color_cuarto"
         android:textColorHint="@color/color_cuarto"
@@ -30,84 +43,103 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/txt_registro_nombre"
         android:layout_width="334dp"
         android:layout_height="55dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginBottom="12dp"
+        android:autofillHints=""
         android:background="@drawable/campo_login"
         android:ems="10"
-        android:hint="  Nombres"
+        android:hint="@string/nombres"
         android:inputType="textPersonName"
+        android:paddingLeft="8dp"
         android:textColor="@color/white"
         android:textColorHint="@color/color_cuarto"
+        app:layout_constraintBottom_toTopOf="@+id/txt_registro_telefono"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName6"
+        android:id="@+id/txt_registro_telefono"
         android:layout_width="334dp"
         android:layout_height="55dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginBottom="12dp"
+        android:autofillHints=""
         android:background="@drawable/campo_login"
         android:ems="10"
-        android:hint="  Telefono"
+        android:hint="@string/telefono"
         android:inputType="textPersonName"
+        android:paddingLeft="8dp"
         android:textColor="@color/white"
         android:textColorHint="@color/color_cuarto"
+        app:layout_constraintBottom_toTopOf="@+id/txt_registro_contrasena"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName7"
+        android:id="@+id/txt_registro_contrasena"
         android:layout_width="334dp"
         android:layout_height="55dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/campo_login"
         android:ems="10"
-        android:hint="  Contraseña"
-        android:inputType="textPersonName"
+        android:hint="@string/contrasena_hint"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:paddingLeft="8dp"
         android:textColor="@color/white"
         android:textColorHint="@color/color_cuarto"
+        app:layout_constraintBottom_toTopOf="@+id/txt_registro_contrasena_2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6" />
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName8"
+        android:id="@+id/txt_registro_contrasena_2"
         android:layout_width="334dp"
         android:layout_height="55dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp"
+        android:autofillHints=""
         android:background="@drawable/campo_login"
         android:ems="10"
-        android:hint="  Repite tu contraseña"
-        android:inputType="textPersonName"
+        android:hint="@string/repite_tu_contrasena"
+        android:inputType="textPassword"
+        android:paddingLeft="8dp"
         android:textColor="@color/white"
         android:textColorHint="@color/color_cuarto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName7" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName5"
-        android:layout_width="334dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/campo_login"
-        android:ems="10"
-        android:hint="  Correo"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        android:textColorHint="@color/color_cuarto"
+        app:layout_constraintBottom_toTopOf="@+id/btn_registrarme_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/txt_registro_correo"
+        android:layout_width="334dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="12dp"
+        android:autofillHints=""
+        android:background="@drawable/campo_login"
+        android:ems="10"
+        android:hint="@string/correo_hint"
+        android:inputType="textPersonName"
+        android:paddingLeft="8dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/color_cuarto"
+        app:layout_constraintBottom_toTopOf="@+id/txt_registro_nombre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="43dp"
+        android:layout_height="7dp"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarRegistro"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/farinam_logo2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
