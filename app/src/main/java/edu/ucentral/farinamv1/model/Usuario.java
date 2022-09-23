@@ -8,6 +8,7 @@ public class Usuario {
     private String email;
     private String password;
     private String role;
+    private String image;
 
     public String getUsuarioId() {
         return usuarioId;
@@ -55,6 +56,14 @@ public class Usuario {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override
