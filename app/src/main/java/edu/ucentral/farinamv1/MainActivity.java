@@ -265,6 +265,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             perfil();
         }
         else if (id == R.id.nav_favoritos) {
+            buscador.setVisibility(View.GONE);
+            spinnerCategorias.setVisibility(View.GONE);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             Bundle result=new Bundle();
             result.putString("usuarioId",mAuth.getCurrentUser().getUid());
@@ -274,6 +276,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (id == R.id.nav_lista) {
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            buscador.setVisibility(View.GONE);
+            spinnerCategorias.setVisibility(View.GONE);
             replaceFragment(fragmentoFavoritos);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
@@ -284,6 +288,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             viewReceta();
         }
         else if(id==R.id.nav_directorio){
+            buscador.setVisibility(View.GONE);
+            spinnerCategorias.setVisibility(View.GONE);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             replaceFragment(fragmentoDirectorio);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);

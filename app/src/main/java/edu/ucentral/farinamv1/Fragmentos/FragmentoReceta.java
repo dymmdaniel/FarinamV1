@@ -147,7 +147,7 @@ public class FragmentoReceta extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.exists()){
                     Favoritos favoritos = snapshot.getValue(Favoritos.class);
-                    ArrayList<Receta> recetaArrayList =favoritos.getRecetas();
+                    ArrayList<Receta> recetaArrayList=favoritos.getRecetas();
                     recetaArrayList.add(receta);
                     Notificacion notificacion=new Notificacion();
                     notificacion.setUsuarioId(receta.getUsuarioId());
@@ -161,6 +161,7 @@ public class FragmentoReceta extends Fragment {
                     ArrayList<Receta> recetaArrayList = new ArrayList<>();
                     recetaArrayList.add(receta);
                     favoritos.setRecetas(recetaArrayList);
+                    Toast.makeText(view.getContext(),"Entro aqui",Toast.LENGTH_SHORT).show();
                     databaseReference.child("Favoritos").child(usuarioId).setValue(favoritos);
                 }
                 Snackbar.make(

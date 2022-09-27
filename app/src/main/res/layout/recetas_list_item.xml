@@ -124,7 +124,7 @@
             android:layout_width="31dp"
             android:layout_height="21dp"
             android:layout_marginBottom="30dp"
-            android:background="@drawable/ic_comentarios"
+            android:background="@drawable/ic_favorite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/receta_comentarios2"
             app:layout_constraintHorizontal_bias="1.0"

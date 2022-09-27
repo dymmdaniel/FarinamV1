@@ -112,7 +112,7 @@ public class CrearReceta extends AppCompatActivity {
         dificultad=findViewById(R.id.rating_bar);
         txIngresarIngrediente=findViewById(R.id.txt_ingresar_ingrediente);
         btnAgregarIngrediente=findViewById(R.id.btn_agregar_ingrediente);
-        listViewIngredientes=findViewById(R.id.list_ingredientes);
+        listViewIngredientes=findViewById(R.id.list_directorio);
         btnContinuar2=findViewById(R.id.btn_receta_2);
         btnRegresarReceta2=findViewById(R.id.btn_regresar_receta_2);
         segundaVista(View.GONE);
