@@ -18,7 +18,7 @@
         <item
             android:id="@+id/nav_lista"
             android:icon="@drawable/ic_hecklist"
-            android:title="Mi lista"/>
+            android:title="Mis Recetas"/>
 
         <item
             android:id="@+id/nav_cronometro"
@@ -29,6 +29,11 @@
             android:id="@+id/nav_directorio"
             android:icon="@drawable/ic_store"
             android:title="Directorio"/>
+
+        <item
+            android:id="@+id/nav_agregar_receta"
+            android:icon="@drawable/ic_crear_receta"
+            android:title="¡Crea tu propia Receta!" />
 
         <item
             android:id="@+id/nav_salirU"

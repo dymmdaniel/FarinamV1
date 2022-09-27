@@ -17,7 +17,15 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+
+import edu.ucentral.farinamv1.model.Favoritos;
+import edu.ucentral.farinamv1.model.Receta;
 import edu.ucentral.farinamv1.model.Usuario;
 
 public class RegistroUsuario extends AppCompatActivity {
@@ -30,10 +38,13 @@ public class RegistroUsuario extends AppCompatActivity {
     private ProgressBar progressBarRegistro;
 
     private FirebaseAuth mAuth;
+    private DatabaseReference databaseReference;
+    private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        iniciarFirebase();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
@@ -68,10 +79,16 @@ public class RegistroUsuario extends AppCompatActivity {
                                 usuario.setNombre(txt_registro_nombre.getText().toString());
                                 usuario.setNumero(Long.parseLong(txt_registro_telefono.getText().toString()));
                                 usuario.setEmail(txt_registro_correo.getText().toString());
+                                usuario.setImage("");
                                 usuario.setPassword(txt_registro_contrasena.getText().toString());
                                 usuario.setRole("USER");
 
-                                //databaseReference.child("User").child(usuario.getUsuarioId()).setValue(usuario);
+                                Favoritos favoritos=new Favoritos();
+                                favoritos.setUsuarioId(usuario.getUsuarioId());
+                                favoritos.setRecetas(null);
+                                databaseReference.child("Favoritos").child(usuario.getUsuarioId()).setValue(favoritos);
+                                databaseReference.child("Usuario").child(usuario.getUsuarioId()).setValue(usuario);
+
                                 error="Se creó la cuenta correctamente, por favor ingrese";
 
                             }else{
@@ -144,5 +161,11 @@ public class RegistroUsuario extends AppCompatActivity {
         Intent intent = new Intent(RegistroUsuario.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    private void iniciarFirebase() {
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        storageReference = FirebaseStorage.getInstance().getReference();
     }
 }

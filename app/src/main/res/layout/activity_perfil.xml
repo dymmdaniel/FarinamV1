@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:animateLayoutChanges="true"
     android:layout_height="match_parent"
     tools:context=".Perfil">
 
@@ -10,13 +11,14 @@
         android:id="@+id/btn_agregar_imagen"
         android:layout_width="191dp"
         android:layout_height="67dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/btn_agregar_foto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usuarioImagen" />
+        app:layout_constraintTop_toBottomOf="@+id/usuario_imagen_perfil" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/usuarioImagen"
+        android:id="@+id/usuario_imagen_perfil"
         android:layout_width="wrap_content"
         android:layout_height="118dp"
         android:layout_gravity="center"
@@ -111,4 +113,22 @@
         app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
+
+    <ProgressBar
+        android:id="@+id/progress_perfil"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="416dp"
+        android:layout_height="14dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/color_primero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:id="@+id/drawer_activity"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity"
@@ -17,11 +18,33 @@
         tools:context=".MainActivity"
         tools:openDrawer="start">
 
+        <ImageView
+            android:id="@+id/image_view_fondo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_busqueda"
+            app:srcCompat="@drawable/background_recetas"
+            tools:ignore="ImageContrastCheck" />
+
+        <SearchView
+            android:id="@+id/buscador"
+            android:layout_width="55dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ProgressBar
-            android:id="@+id/progressBarBusqueda"
+            android:id="@+id/progress_busqueda"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="410dp"
-            android:layout_height="12dp"
+            android:layout_width="416dp"
+            android:layout_height="13dp"
             android:layout_marginTop="60dp"
             android:indeterminate="true"
             android:indeterminateTint="@color/color_primero"
@@ -30,28 +53,53 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <SearchView
-            android:id="@+id/buscador"
-            android:layout_width="55dp"
-            android:layout_height="39dp"
-            android:layout_marginTop="16dp"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_crear_receta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            app:backgroundTint="@color/color_primero"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigator"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.997"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:srcCompat="@drawable/ic_crear_receta" />
 
-        <Button
-            android:id="@+id/btn_menu_main"
-            android:layout_width="41dp"
-            android:layout_height="39dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/btn_menu"
-            android:forceDarkAllowed="true"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigator"
+            android:layout_width="412dp"
+            android:layout_height="55dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.407"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_menu" />
+
+        <FrameLayout
+            android:id="@+id/mainContainer"
+            android:layout_width="409dp"
+            android:layout_height="510dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
-            tools:targetApi="q" />
+            app:layout_constraintVertical_bias="1.0">
+
+        </FrameLayout>
+
+        <Spinner
+            android:id="@+id/spinner_main_categoria"
+            android:layout_width="412dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buscador"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <!--<com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -74,7 +122,10 @@
         android:background="@color/white"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/menu_usuario"/>
+        app:menu="@menu/menu_usuario"
+        tools:visibility="gone" />
+
+
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

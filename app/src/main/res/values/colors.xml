@@ -2,7 +2,7 @@
 <resources>
     <!--Colores para el tema Normal-->
     <color name="color_primero">#ffa43a</color>
-    <color name="color_segundo">#ffbf75</color>
+    <color name="color_segundo">#97FBBC74</color>
     <color name="color_tercero">#759eff</color>
     <color name="color_cuarto">#75c7ff</color>
     <color name="color_quinto">#525558</color>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="412dp"
+    android:layout_height="220dp"
+    android:background="@color/color_cuarto"
+    tools:layout_editor_absoluteX="6dp"
+    tools:layout_editor_absoluteY="-1dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="413dp"
+            android:layout_height="236dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/receta_tarjeta" />
+
+        <TextView
+            android:id="@+id/receta_descripcion"
+            android:layout_width="193dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="8dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:maxLength="95"
+            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+            android:textColor="@color/color_quinto"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/receta_categoria"
+            app:layout_constraintEnd_toEndOf="@+id/imageView4"
+            app:layout_constraintHorizontal_bias="0.025"
+            app:layout_constraintStart_toEndOf="@+id/receta_imagen"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/receta_titulo"
+            android:layout_width="87dp"
+            android:layout_height="24dp"
+            android:maxLength="25"
+            android:text="TextView"
+            android:textColor="@color/color_quinto"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/receta_descripcion"
+            app:layout_constraintEnd_toStartOf="@+id/receta_valoracion"
+            app:layout_constraintHorizontal_bias="0.351"
+            app:layout_constraintStart_toEndOf="@+id/receta_imagen"
+            app:layout_constraintTop_toTopOf="@+id/imageView4"
+            app:layout_constraintVertical_bias="0.761" />
+
+        <TextView
+            android:id="@+id/receta_nombre_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="68dp"
+            android:layout_marginTop="16dp"
+            android:maxLength="11"
+            android:text="TextView"
+            android:textColor="@color/color_quinto"
+            app:layout_constraintStart_toEndOf="@+id/receta_imagen"
+            app:layout_constraintTop_toBottomOf="@+id/receta_categoria" />
+
+        <RatingBar
+            android:id="@+id/receta_valoracion"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="82dp"
+            android:layout_height="17dp"
+            android:layout_marginBottom="180dp"
+            android:numStars="5"
+            android:progressTint="@color/color_primero"
+            android:rating="0"
+            android:stepSize="0.5"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.906"
+            app:layout_constraintStart_toStartOf="@+id/imageView4" />
+
+        <TextView
+            android:id="@+id/receta_tiempo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="56dp"
+            android:text="TextView"
+            android:textColor="@color/color_quinto"
+            app:layout_constraintEnd_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/receta_descripcion" />
+
+        <TextView
+            android:id="@+id/receta_categoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="37dp"
+            android:layout_marginBottom="75dp"
+            android:maxLength="9"
+            android:text="TextView"
+            android:textColor="@color/color_quinto"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/receta_imagen" />
+
+        <ImageView
+            android:id="@+id/receta_imagen"
+            android:layout_width="133dp"
+            android:layout_height="143dp"
+            android:layout_marginStart="28dp"
+            android:background="@drawable/ic_stat_name"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintStart_toStartOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/imageView4"
+            app:layout_constraintVertical_bias="0.419"
+            app:srcCompat="@drawable/receta_imagen_null" />
+
+        <TextView
+            android:id="@+id/receta_comentarios"
+            android:layout_width="31dp"
+            android:layout_height="21dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/ic_comentarios"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/receta_comentarios2"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/receta_nombre_usuario"
+            app:layout_constraintTop_toBottomOf="@+id/receta_tiempo"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/receta_comentarios2"
+            android:layout_width="31dp"
+            android:layout_height="21dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="30dp"
+            android:text="12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView4" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

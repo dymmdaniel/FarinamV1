@@ -12,4 +12,7 @@
     <string name="navigation_drawer_open">Abrir el Menu de usuario</string>
     <string name="navigation_drawer_close">Cerrar el Menu de usuario</string>
     <string name="nombre">Nombre</string>
+    <string name="crea_tu_receta">Crea tu receta</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

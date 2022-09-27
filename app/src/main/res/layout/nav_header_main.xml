@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="180dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/color_primero"
+    android:background="@color/color_segundo"
     android:gravity="bottom"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
@@ -14,16 +14,17 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/usuarioImagen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/usuario_imagen_perfil"
+        android:layout_width="120dp"
+        android:layout_height="115dp"
         android:layout_gravity="center"
+        android:layout_marginTop="8dp"
         android:src="@drawable/icon_photo" />
 
     <TextView
         android:id="@+id/usuarioNombrePerfil"
-        android:layout_width="121dp"
-        android:layout_height="86dp"
+        android:layout_width="131dp"
+        android:layout_height="48dp"
         android:layout_marginTop="5dp"
         android:gravity="center"
         android:paddingTop="5dp"

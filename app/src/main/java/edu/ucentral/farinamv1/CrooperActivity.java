@@ -17,6 +17,9 @@ public class CrooperActivity extends AppCompatActivity {
     private String result;
     private Uri fileUri;
 
+    private int resolutionX;
+    private int resolutionY;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,13 +34,15 @@ public class CrooperActivity extends AppCompatActivity {
                 .withOptions(options)
                 .withAspectRatio(0,0)
                 .useSourceImageAspectRatio()
-                .withMaxResultSize(2000,2000)
+                .withMaxResultSize(resolutionX,resolutionY)
                 .start(CrooperActivity.this);
     }
     public void readIntent(){
         Intent intent=getIntent();
         if(intent.getExtras()!=null){
             result=intent.getStringExtra("DATA");
+            resolutionX = intent.getExtras().getInt("RESOLUTION_X");
+            resolutionY = intent.getExtras().getInt("RESOLUTION_Y");
             fileUri=Uri.parse(result);
         }
     }
@@ -54,6 +59,13 @@ public class CrooperActivity extends AppCompatActivity {
         }else if(resultCode== UCrop.RESULT_ERROR){
             final Throwable cropError=UCrop.getError(data);
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(CrooperActivity.this,Perfil.class);
+        startActivity(intent);
+        finish(); // terminar esta view
     }
 
 }

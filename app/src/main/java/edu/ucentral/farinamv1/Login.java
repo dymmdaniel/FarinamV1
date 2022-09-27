@@ -128,6 +128,7 @@ public class Login extends AppCompatActivity {
         Intent intent = new Intent(Login.this,OlvidarContra.class);
         startActivity(intent);
     }
+
     @Override
     protected void onStart(){
         super.onStart();
@@ -135,6 +136,11 @@ public class Login extends AppCompatActivity {
         if(currentUser != null){
             viewMain();
         }
+    }
+
+    @Override
+    public void onBackPressed (){
+        // Para que bloquee el boton de devolver
     }
 
 }
