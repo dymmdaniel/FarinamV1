@@ -7,10 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -53,16 +57,16 @@ import edu.ucentral.farinamv1.Fragmentos.FragmentoCuenta;
 import edu.ucentral.farinamv1.Fragmentos.FragmentoDirectorio;
 import edu.ucentral.farinamv1.Fragmentos.FragmentoFavoritos;
 import edu.ucentral.farinamv1.Fragmentos.FragmentoMain;
+import edu.ucentral.farinamv1.Fragmentos.FragmentoMiLista;
 import edu.ucentral.farinamv1.Fragmentos.FragmentoNotificaciones;
 import edu.ucentral.farinamv1.model.Categoria;
+import edu.ucentral.farinamv1.model.Notificacion;
 import edu.ucentral.farinamv1.model.Usuario;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private ProgressBar progressBarBusqueda;
-    private SearchView buscador;
     private ImageView image_view_fondo;
-    private Spinner spinnerCategorias;
 
     private TextView nombreUsuario;
     private CircleImageView iconUsuario;
@@ -70,8 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private BottomNavigationView mainBottom;
     private DrawerLayout drawerLayout;
 
-    private ArrayList<Categoria> categorias=new ArrayList<>();
-    private ArrayAdapter<Categoria> categoriaArrayAdapter;
+
 
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
@@ -82,6 +85,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FragmentoNotificaciones fragmentoNotificaciones;
     private FragmentoFavoritos fragmentoFavoritos;
     private FragmentoDirectorio fragmentoDirectorio;
+    private FragmentoMiLista fragmentoMiLista;
+    private NotificationCompat.Builder notificacionGlobal;
+    private static final int idUnica=51623;
+
 
 
 
@@ -93,72 +100,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         iniciarFirebase();
 
         progressBarBusqueda=findViewById(R.id.progress_busqueda);
-        buscador=findViewById(R.id.buscador);
         btn_crear_receta=findViewById(R.id.btn_crear_receta);
         mainBottom=findViewById(R.id.bottom_navigator);
         image_view_fondo=findViewById(R.id.image_view_fondo);
-        spinnerCategorias=findViewById(R.id.spinner_main_categoria);
-
-        databaseReference.child("Categoria").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                categorias.clear();
-                Categoria categoria_temp=new Categoria();
-                categoria_temp.setNombre("Selecciona una categoria");
-                categorias.add(categoria_temp);
-                for(DataSnapshot objSnapshot : snapshot.getChildren()){
-                    Categoria categoria=objSnapshot.getValue(Categoria.class);
-                    categorias.add(categoria);
-                }
-                categoriaArrayAdapter=new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,categorias){
-                    @Override
-                    public boolean isEnabled(int position){
-                        return position != 0;
-                    }
-                    @Override
-                    public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent){
-                        View view=super.getDropDownView(position, convertView, parent);
-                        TextView textView = (TextView) view;
-                        if(position == 0){
-                            textView.setTextColor(Color.GRAY);
-                        }else{
-                            textView.setTextColor(Color.BLACK);
-                        }
-                        return view;
-                    }
-                };
-                categoriaArrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                spinnerCategorias.setAdapter(categoriaArrayAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        buscador.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ViewGroup.LayoutParams layoutParams = buscador.getLayoutParams();
-                layoutParams.width = (int) (348 * buscador.getResources().getDisplayMetrics().density);
-                view.setLayoutParams(layoutParams);
-            }
-        });
-        buscador.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                ViewGroup.LayoutParams layoutParams = buscador.getLayoutParams();
-                layoutParams.width = (int) (55 * buscador.getResources().getDisplayMetrics().density);
-                buscador.setLayoutParams(layoutParams);
-                return false;
-            }
-        });
+        NotificationCompat.Builder  notificacionGlobal = new NotificationCompat.Builder(this);
 
         btn_crear_receta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 viewReceta();
+                notificacionGlobal
+                        .setSmallIcon(R.drawable.ic_stat_name)
+                        .setTicker("Farinam")
+                        .setWhen(System.currentTimeMillis())
+                        .setContentTitle("Farinam")
+                        .setContentText("Es hora de Cocinar!")
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText("Tenemos muchas recetas para ti..."))
+                        .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+                Intent intent = new Intent(MainActivity.this,MainActivity.class);
+                PendingIntent pendingIntent= PendingIntent.getActivity(MainActivity.this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                notificacionGlobal.setContentIntent(pendingIntent);
+
+                NotificationManager nm=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                nm.notify(idUnica,notificacionGlobal.build());
             }
         });
 
@@ -180,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentoNotificaciones=new FragmentoNotificaciones();
         fragmentoFavoritos=new FragmentoFavoritos();
         fragmentoDirectorio=new FragmentoDirectorio();
+        fragmentoMiLista=new FragmentoMiLista();
 
         mainBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -187,19 +154,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 switch (item.getItemId()){
                     case R.id.bottom_inicio:
                         replaceFragment(fragmentoMain);
-                        buscador.setVisibility(View.VISIBLE);
-                        spinnerCategorias.setVisibility(View.VISIBLE);
                         progressBarBusqueda.setVisibility(View.GONE);
                         image_view_fondo.setVisibility(View.GONE);
                         return true;
                     case R.id.bottom_notificaciones:
-                        buscador.setVisibility(View.GONE);
-                        spinnerCategorias.setVisibility(View.GONE);
+                        Bundle result=new Bundle();
+                        result.putString("usuarioId",nombreUsuario.getText().toString());
+                        fragmentoNotificaciones.setArguments(result);
                         replaceFragment(fragmentoNotificaciones);
                         return true;
                     case R.id.bottom_perfil:
-                        buscador.setVisibility(View.GONE);
-                        spinnerCategorias.setVisibility(View.GONE);
                         replaceFragment(fragmentoCuenta);
                         return true;
                     default:
@@ -265,8 +229,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             perfil();
         }
         else if (id == R.id.nav_favoritos) {
-            buscador.setVisibility(View.GONE);
-            spinnerCategorias.setVisibility(View.GONE);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             Bundle result=new Bundle();
             result.putString("usuarioId",mAuth.getCurrentUser().getUid());
@@ -276,9 +238,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (id == R.id.nav_lista) {
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-            buscador.setVisibility(View.GONE);
-            spinnerCategorias.setVisibility(View.GONE);
-            replaceFragment(fragmentoFavoritos);
+            Bundle result=new Bundle();
+            result.putString("usuarioId",nombreUsuario.getText().toString());
+            fragmentoMiLista.setArguments(result);
+            replaceFragment(fragmentoMiLista);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
         else if (id == R.id.nav_cronometro) {
@@ -288,8 +251,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             viewReceta();
         }
         else if(id==R.id.nav_directorio){
-            buscador.setVisibility(View.GONE);
-            spinnerCategorias.setVisibility(View.GONE);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             replaceFragment(fragmentoDirectorio);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);

@@ -106,6 +106,7 @@ public class CrearReceta extends AppCompatActivity {
         spinnerCategoria=findViewById(R.id.spinner_categoria);
         btnContinuar1=findViewById(R.id.btn_receta_1);
         cargarDatosSpinner();
+        editar();
 
         //Segunda vista
         textView5=findViewById(R.id.textView5);
@@ -472,6 +473,52 @@ public class CrearReceta extends AppCompatActivity {
             btnAgregarImagenRecetaF.setLayoutParams(layoutParams);*/
             btnAgregarImagenRecetaF.setImageURI(resultUri);
             uri=resultUri;
+        }
+    }
+
+    public void editar(){
+        Bundle extras=getIntent().getExtras();
+        if (extras!=null){
+            String recetaId=extras.getString("recetaId");
+            databaseReference.child("Receta").orderByChild("recetaId").equalTo(recetaId).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    Receta receta=snapshot.getValue(Receta.class);
+                    txNombreReceta.setText(receta.getTiempo());
+                    //spinnerCategoria.setSelected();
+                    //receta.setCategoriaId(.getSelectedItem().toString());
+                    //receta.setDificultad(dificultad.getRating());
+                    //txDescripcion.
+                    //receta.setDescripcion(getText().toString());
+                    //receta.setIngredient(ingredientes);
+                    receta.setPasos(txPasos.getText().toString());
+                    receta.setTiempo(Integer.parseInt(txTiempo.getText().toString()));
+                    receta.setValoracion(0);
+                    receta.setEnable(true);
+                    receta.setLike(0);
+                    receta.setDislike(0);
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
     }
 

@@ -74,6 +74,7 @@ public class FragmentoReceta extends Fragment {
     private TextView texView15;
     private TextView texView17;
     private TextView texView20;
+    private String usuarioNombreId;
 
 
     private FirebaseAuth mAuth;
@@ -141,6 +142,32 @@ public class FragmentoReceta extends Fragment {
 
     public void agregarFavoritos(View view) {
         String usuarioId = mAuth.getCurrentUser().getUid();
+        databaseReference.child("Usuario").orderByChild("usuarioId").equalTo(usuarioId).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @com.google.firebase.database.annotations.Nullable String previousChildName) {
+                Usuario usuario=snapshot.getValue(Usuario.class);
+                usuarioNombreId=usuario.getNombre();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @com.google.firebase.database.annotations.Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @com.google.firebase.database.annotations.Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
         Query findFavorito = databaseReference.child("Favoritos").orderByChild("usuarioId").equalTo(usuarioId);
         findFavorito.addChildEventListener(new ChildEventListener() {
             @Override
@@ -151,7 +178,7 @@ public class FragmentoReceta extends Fragment {
                     recetaArrayList.add(receta);
                     Notificacion notificacion=new Notificacion();
                     notificacion.setUsuarioId(receta.getUsuarioId());
-                    notificacion.setNotificacion("El usuario "+usuarioId+ " ha guardado tu receta!");
+                    notificacion.setNotificacion("El usuario "+usuarioNombreId+ " ha guardado la receta "+receta.getTitulo()+"!");
                     databaseReference.child("Notificacion").child(usuarioId).setValue(notificacion);
                     favoritos.setRecetas(recetaArrayList);
                     databaseReference.child("Favoritos").child(usuarioId).setValue(favoritos);

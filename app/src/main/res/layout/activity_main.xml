@@ -30,20 +30,11 @@
             app:srcCompat="@drawable/background_recetas"
             tools:ignore="ImageContrastCheck" />
 
-        <SearchView
-            android:id="@+id/buscador"
-            android:layout_width="55dp"
-            android:layout_height="39dp"
-            android:layout_marginTop="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ProgressBar
             android:id="@+id/progress_busqueda"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="416dp"
+            android:layout_above="@+id/mainContainer"
             android:layout_height="13dp"
             android:layout_marginTop="60dp"
             android:indeterminate="true"
@@ -78,9 +69,8 @@
 
         <FrameLayout
             android:id="@+id/mainContainer"
-            android:layout_width="409dp"
-            android:layout_height="510dp"
-            android:layout_marginBottom="4dp"
+            android:layout_width="414dp"
+            android:layout_height="601dp"
             app:layout_constraintBottom_toTopOf="@+id/bottom_navigator"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -89,17 +79,6 @@
             app:layout_constraintVertical_bias="1.0">
 
         </FrameLayout>
-
-        <Spinner
-            android:id="@+id/spinner_main_categoria"
-            android:layout_width="412dp"
-            android:layout_height="38dp"
-            android:layout_marginTop="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buscador"
-            tools:ignore="TouchTargetSizeCheck" />
 
         <!--<com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"

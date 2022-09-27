@@ -23,7 +23,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 import edu.ucentral.farinamv1.Perfil;
 import edu.ucentral.farinamv1.R;
@@ -33,10 +36,12 @@ import edu.ucentral.farinamv1.model.Usuario;
 public class RecetaRecicle extends RecyclerView.Adapter<RecetaRecicle.ViewHolder> implements View.OnClickListener{
 
     public List<Receta> recetas;
+    public List<Receta> recetas_filtrado;
     public Context context;
     private View.OnClickListener listener;
     public RecetaRecicle(List<Receta> recetas){
         this.recetas=recetas;
+        recetas_filtrado=new ArrayList<>();
     }
 
 
