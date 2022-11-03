@@ -31,6 +31,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -97,6 +98,8 @@ public class CrearReceta extends AppCompatActivity {
     private StorageReference storageReference;
     private ActivityResultLauncher<String> mGetContent;
     private Uri uri;
+    private boolean editable=false;
+    private String editableRecetaId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +112,6 @@ public class CrearReceta extends AppCompatActivity {
         spinnerCategoria=findViewById(R.id.spinner_categoria);
         btnContinuar1=findViewById(R.id.btn_receta_1);
         cargarDatosSpinner();
-        editar();
 
         //Segunda vista
         textView5=findViewById(R.id.textView5);
@@ -133,6 +135,8 @@ public class CrearReceta extends AppCompatActivity {
         textCalorias=findViewById(R.id.textView001);
         imagenCalorias=findViewById(R.id.imagen_calorias);
         terceraVista(View.GONE);
+
+        editar();
 
         btnAgregarImagenRecetaF.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -244,7 +248,14 @@ public class CrearReceta extends AppCompatActivity {
     public void crearReceta(){
         if(validar()){
             Receta receta=new Receta();
-            receta.setRecetaId(UUID.randomUUID().toString());
+            if(editable){
+                receta.setRecetaId(editableRecetaId);
+            }else {
+                receta.setRecetaId(UUID.randomUUID().toString());
+                receta.setValoracion(0);
+                receta.setLike(0);
+                receta.setDislike(0);
+            }
             receta.setTitulo(txNombreReceta.getText().toString());
             databaseReference.child("Usuario").orderByChild("usuarioId").equalTo(mAuth.getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
                 @Override
@@ -280,32 +291,33 @@ public class CrearReceta extends AppCompatActivity {
             receta.setIngredient(ingredientes);
             receta.setPasos(txPasos.getText().toString());
             receta.setTiempo(Integer.parseInt(txTiempo.getText().toString()));
-            receta.setValoracion(0);
             receta.setEnable(true);
-            receta.setLike(0);
-            receta.setDislike(0);
             receta.setCalorias(txCalorias.getText().toString()+"kcal");
-            StorageReference image_path = storageReference.child("recetas_imagenes").child(receta.getRecetaId()+".jpg");
-            image_path.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        image_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                receta.setImage(String.valueOf(uri));
-                                databaseReference.child("Receta").child(receta.getRecetaId()).setValue(receta);
-                            }
-                        });
-                    }else{
-                        Snackbar.make(
-                                findViewById(R.id.text_view_crear),
-                                "Error al cargar la imagen. ",
-                                BaseTransientBottomBar.LENGTH_SHORT
-                        ).show();
+            if(uri!=null){
+                StorageReference image_path = storageReference.child("recetas_imagenes").child(receta.getRecetaId()+".jpg");
+                image_path.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            image_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    receta.setImage(String.valueOf(uri));
+                                    databaseReference.child("Receta").child(receta.getRecetaId()).setValue(receta);
+                                }
+                            });
+                        }else{
+                            Snackbar.make(
+                                    findViewById(R.id.text_view_crear),
+                                    "Error al cargar la imagen. ",
+                                    BaseTransientBottomBar.LENGTH_SHORT
+                            ).show();
+                        }
                     }
-                }
-            });
+                });
+            }else{
+                databaseReference.child("Receta").child(receta.getRecetaId()).setValue(receta);
+            }
             Snackbar.make(
                     findViewById(R.id.text_view_crear),
                     "Se ha creado tu receta.",
@@ -315,7 +327,7 @@ public class CrearReceta extends AppCompatActivity {
         }else{
             Snackbar.make(
                     findViewById(R.id.text_view_crear),
-                    "Fallo al guardar la receta, llena todos los datos por requeridos",
+                    "Fallo al guardar la receta, llena todos los datos requeridos",
                     BaseTransientBottomBar.LENGTH_SHORT
             ).show();
         }
@@ -494,23 +506,35 @@ public class CrearReceta extends AppCompatActivity {
         Bundle extras=getIntent().getExtras();
         if (extras!=null){
             String recetaId=extras.getString("recetaId");
+            btnCrearRecetaFinal.setText("Editar Receta");
+            editableRecetaId=recetaId;
+            editable=true;
             databaseReference.child("Receta").orderByChild("recetaId").equalTo(recetaId).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                     Receta receta=snapshot.getValue(Receta.class);
-                    txNombreReceta.setText(receta.getTiempo());
-                    //spinnerCategoria.setSelected();
-                    //receta.setCategoriaId(.getSelectedItem().toString());
-                    //receta.setDificultad(dificultad.getRating());
-                    //txDescripcion.
-                    //receta.setDescripcion(getText().toString());
-                    //receta.setIngredient(ingredientes);
-                    receta.setPasos(txPasos.getText().toString());
-                    receta.setTiempo(Integer.parseInt(txTiempo.getText().toString()));
-                    receta.setValoracion(0);
-                    receta.setEnable(true);
-                    receta.setLike(0);
-                    receta.setDislike(0);
+                    txNombreReceta.setText(receta.getTitulo());
+                    for(int i=0;i<categoriaList.size();i++){
+                        if(categoriaList.get(i).getNombre().equals(receta.getCategoriaId())){
+                            spinnerCategoria.setSelection(i);
+                        }
+                    }
+                    if(!receta.getImage().equals("")){
+                        Glide.with(CrearReceta.this)
+                                .load(Uri.parse(receta.getImage()))
+                                .into(btnAgregarImagenRecetaF);
+                    }
+
+                    dificultad.setRating((float) receta.getDificultad());
+                    txDescripcion.setText(receta.getDescripcion());
+                    ingredientes=receta.getIngredient();
+                    ingredienteArrayAdapter = new ArrayAdapter<Ingrediente>(CrearReceta.this,R.layout.simple_list_delete,ingredientes);
+                    listViewIngredientes.setAdapter(ingredienteArrayAdapter);
+                    txPasos.setText(receta.getPasos());
+                    txTiempo.setText(String.valueOf(receta.getTiempo()));
+                    String calorias=receta.getCalorias();
+                    calorias=calorias.substring(0,calorias.length()-4);
+                    txCalorias.setText(calorias);
                 }
 
                 @Override

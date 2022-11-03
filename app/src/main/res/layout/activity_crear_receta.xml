@@ -316,10 +316,10 @@
 
     <TextView
         android:id="@+id/imagen_calorias"
-        android:layout_width="43dp"
-        android:layout_height="40dp"
+        android:layout_width="36dp"
+        android:layout_height="34dp"
         android:layout_marginTop="32dp"
-        android:text="imagen_calorias"
+        android:background="@drawable/ic_icono_calorias"
         app:layout_constraintBottom_toTopOf="@+id/btn_crear_receta_final"
         app:layout_constraintEnd_toStartOf="@+id/textView001"
         app:layout_constraintHorizontal_bias="0.228"

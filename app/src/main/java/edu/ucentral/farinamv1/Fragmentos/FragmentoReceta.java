@@ -77,6 +77,7 @@ public class FragmentoReceta extends Fragment {
     private TextView texView17;
     private TextView texView20;
     private String usuarioNombre;
+    private String recetaId;
 
 
     private FirebaseAuth mAuth;
@@ -147,15 +148,17 @@ public class FragmentoReceta extends Fragment {
         btnEditarReceta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editarReceta();
+                editarReceta(recetaId);
             }
         });
         cargarDatos(recetaId, view);
         return view;
     }
 
-    public void editarReceta(){
-
+    public void editarReceta(String recetaId){
+       Intent intent = new Intent(getActivity(),CrearReceta.class);
+       intent.putExtra("recetaId",recetaId);
+       startActivity(intent);
     }
 
     public void agregarFavoritos(View view) {
