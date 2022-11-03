@@ -56,7 +56,7 @@ public class RecetaRecicle extends RecyclerView.Adapter<RecetaRecicle.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String nombreUsuario=recetas.get(position).getUsuarioId();
+        String nombreUsuario=recetas.get(position).getUsuarioNombre();
         String sDescripcion=recetas.get(position).getDescripcion();
         int sTiempo=recetas.get(position).getTiempo();
         String sCategoria=recetas.get(position).getCategoriaId();
@@ -88,7 +88,7 @@ public class RecetaRecicle extends RecyclerView.Adapter<RecetaRecicle.ViewHolder
         private View viewMain;
 
 
-        private TextView usuarioId;
+        private TextView usuarioNombre;
         private TextView descripcion;
         private TextView tiempo;
         private TextView categoria;
@@ -111,7 +111,7 @@ public class RecetaRecicle extends RecyclerView.Adapter<RecetaRecicle.ViewHolder
                             String sImagen){
 
             //Toca buscar el name
-            usuarioId= viewMain.findViewById(R.id.receta_nombre_usuario); //String
+            usuarioNombre= viewMain.findViewById(R.id.receta_nombre_usuario); //String
             descripcion = viewMain.findViewById(R.id.receta_descripcion); //String
             tiempo = viewMain.findViewById(R.id.receta_tiempo); //Int
             categoria = viewMain.findViewById(R.id.receta_categoria); // String
@@ -119,7 +119,7 @@ public class RecetaRecicle extends RecyclerView.Adapter<RecetaRecicle.ViewHolder
             valoracion = viewMain.findViewById(R.id.receta_valoracion); //Double
             image = viewMain.findViewById(R.id.receta_imagen); //String
 
-            usuarioId.setText(nombreUsuario);
+            usuarioNombre.setText(nombreUsuario);
             descripcion.setText(sDescripcion);
             tiempo.setText(String.valueOf(sTiempo)+" Min");
             categoria.setText(sCategoria);

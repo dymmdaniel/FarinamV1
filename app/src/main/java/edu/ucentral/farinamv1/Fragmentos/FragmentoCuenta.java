@@ -57,6 +57,8 @@ public class FragmentoCuenta extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragmento_cuenta, container, false);
         iniciarFirebase();
+
+        countFav=0;
         imagenUsuario=view.findViewById(R.id.usuario_imagen_perfil);
         nombre=view.findViewById(R.id.usuario_nombre_perfil);
         countRecetas=view.findViewById(R.id.txt_count_recetas);
@@ -100,12 +102,14 @@ public class FragmentoCuenta extends Fragment {
         databaseReference.child("Favoritos").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                countFav=0;
                 for(DataSnapshot objSnapshot : snapshot.getChildren()){
                     Favoritos favoritos=objSnapshot.getValue(Favoritos.class);
-                    if(favoritos.getUsuarioId().equals(mAuth.getCurrentUser().getUid())){
-                        for(int i=0;i<favoritos.getRecetas().size();i++){
-                            countFav++;
+                    if(!favoritos.getRecetas().isEmpty()){
+                        if(favoritos.getUsuarioId().equals(mAuth.getCurrentUser().getUid())){
+                            for(int i=0;i<favoritos.getRecetas().size();i++){
+                                countFav++;
+                            }
                         }
                     }
                 }
@@ -120,10 +124,10 @@ public class FragmentoCuenta extends Fragment {
         databaseReference.child("Receta").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                countRec=0;
                 for(DataSnapshot objSnapshot : snapshot.getChildren()){
                     Receta receta=objSnapshot.getValue(Receta.class);
-                    if(receta.getUsuarioId().equals(nombre.getText().toString())){
+                    if(receta.getUsuarioId().equals(mAuth.getCurrentUser().getUid())){
                         countRec++;
                     }
                 }

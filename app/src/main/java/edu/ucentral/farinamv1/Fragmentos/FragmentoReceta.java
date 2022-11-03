@@ -37,6 +37,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import edu.ucentral.farinamv1.CrearReceta;
 import edu.ucentral.farinamv1.MainActivity;
@@ -68,13 +69,14 @@ public class FragmentoReceta extends Fragment {
     private Button regresar;
     private TextView pasos;
     private Button btnAgregarFavoritos;
+    private Button btnEditarReceta;
 
     private TextView texView11;
     private TextView texView14;
     private TextView texView15;
     private TextView texView17;
     private TextView texView20;
-    private String usuarioNombreId;
+    private String usuarioNombre;
 
 
     private FirebaseAuth mAuth;
@@ -92,6 +94,7 @@ public class FragmentoReceta extends Fragment {
         Bundle arguments=getArguments();
         String recetaId=arguments.getString("recetaId");
         int enable=arguments.getInt("Enable");
+        int editable=arguments.getInt("editable");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_receta, container, false);
         iniciarFirebase();
@@ -112,8 +115,13 @@ public class FragmentoReceta extends Fragment {
         texView17 = view.findViewById(R.id.textView17);
         texView20 = view.findViewById(R.id.textView20);
         btnAgregarFavoritos = view.findViewById(R.id.btn_agregar_favoritos);
+        btnEditarReceta = view.findViewById(R.id.btn_editar_receta);
+        btnEditarReceta.setVisibility(View.GONE);
         if(enable==0){
             btnAgregarFavoritos.setVisibility(View.GONE);
+        }
+        if(editable==1){
+            btnEditarReceta.setVisibility(View.VISIBLE);
         }
         primerView(View.GONE);
         siguiete.setOnClickListener(new View.OnClickListener() {
@@ -136,8 +144,18 @@ public class FragmentoReceta extends Fragment {
                 agregarFavoritos(view);
             }
         });
+        btnEditarReceta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editarReceta();
+            }
+        });
         cargarDatos(recetaId, view);
         return view;
+    }
+
+    public void editarReceta(){
+
     }
 
     public void agregarFavoritos(View view) {
@@ -146,7 +164,7 @@ public class FragmentoReceta extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @com.google.firebase.database.annotations.Nullable String previousChildName) {
                 Usuario usuario=snapshot.getValue(Usuario.class);
-                usuarioNombreId=usuario.getNombre();
+                usuarioNombre=usuario.getNombre();
             }
 
             @Override
@@ -174,12 +192,20 @@ public class FragmentoReceta extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.exists()){
                     Favoritos favoritos = snapshot.getValue(Favoritos.class);
-                    ArrayList<Receta> recetaArrayList=favoritos.getRecetas();
+                    ArrayList<Receta> recetaArrayList;
+                    if(favoritos.getRecetas()==null){
+                        recetaArrayList=new ArrayList<>();
+                    }else{
+                        recetaArrayList=favoritos.getRecetas();
+                    }
                     recetaArrayList.add(receta);
                     Notificacion notificacion=new Notificacion();
-                    notificacion.setUsuarioId(receta.getUsuarioId());
-                    notificacion.setNotificacion("El usuario "+usuarioNombreId+ " ha guardado la receta "+receta.getTitulo()+"!");
-                    databaseReference.child("Notificacion").child(usuarioId).setValue(notificacion);
+                    notificacion.setUsuarioId(usuarioId);
+                    notificacion.setNotificacion("El usuario "+usuarioNombre+ " ha guardado la receta "+receta.getTitulo()+"!");
+                    notificacion.setUsuarioReceta(receta.getUsuarioId());
+                    String idNotificacion=UUID.randomUUID().toString();
+                    notificacion.setId(idNotificacion);
+                    databaseReference.child("Notificacion").child(idNotificacion).setValue(notificacion);
                     favoritos.setRecetas(recetaArrayList);
                     databaseReference.child("Favoritos").child(usuarioId).setValue(favoritos);
                 }else{
@@ -188,7 +214,11 @@ public class FragmentoReceta extends Fragment {
                     ArrayList<Receta> recetaArrayList = new ArrayList<>();
                     recetaArrayList.add(receta);
                     favoritos.setRecetas(recetaArrayList);
-                    Toast.makeText(view.getContext(),"Entro aqui",Toast.LENGTH_SHORT).show();
+                    Notificacion notificacion=new Notificacion();
+                    notificacion.setUsuarioId(receta.getUsuarioId());
+                    notificacion.setNotificacion("El usuario "+usuarioNombre+ " ha guardado la receta "+receta.getTitulo()+"!");
+                    databaseReference.child("Notificacion").child(usuarioId).setValue(notificacion);
+                    Toast.makeText(getContext(), notificacion.getNotificacion(), Toast.LENGTH_SHORT).show();
                     databaseReference.child("Favoritos").child(usuarioId).setValue(favoritos);
                 }
                 Snackbar.make(

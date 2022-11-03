@@ -62,6 +62,7 @@ public class FragmentoMiLista extends Fragment {
                 Bundle result=new Bundle();
                 result.putString("recetaId",recetas.get(list_view_mi_lista.getChildAdapterPosition(view)).getRecetaId());
                 result.putInt("Enable",0);
+                result.putInt("editable",1);
                 Fragment fragment = new FragmentoReceta();
                 fragment.setArguments(result);
                 FragmentManager fragmentManager=getActivity().getSupportFragmentManager();

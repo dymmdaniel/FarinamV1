@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         return true;
                     case R.id.bottom_notificaciones:
                         Bundle result=new Bundle();
-                        result.putString("usuarioId",nombreUsuario.getText().toString());
+                        result.putString("usuarioId",mAuth.getCurrentUser().getUid());
                         fragmentoNotificaciones.setArguments(result);
                         replaceFragment(fragmentoNotificaciones);
                         return true;
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else if (id == R.id.nav_lista) {
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             Bundle result=new Bundle();
-            result.putString("usuarioId",nombreUsuario.getText().toString());
+            result.putString("usuarioId",mAuth.getCurrentUser().getUid());
             fragmentoMiLista.setArguments(result);
             replaceFragment(fragmentoMiLista);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);

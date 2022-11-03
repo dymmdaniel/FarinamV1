@@ -19,14 +19,14 @@
         android:id="@+id/txt_receta_titulo"
         android:layout_width="142dp"
         android:layout_height="22dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="68dp"
         android:text="Titulo"
         android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintHorizontal_bias="0.325"
         app:layout_constraintStart_toEndOf="@+id/image_view_receta"
-        app:layout_constraintTop_toBottomOf="@+id/btn_agregar_favoritos" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_receta_descripcion"
@@ -157,11 +157,11 @@
         tools:ignore="DuplicateClickableBoundsCheck" />
 
     <Button
-        android:id="@+id/btn_agregar_favoritos"
+        android:id="@+id/btn_editar_receta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/color_primero"
-        android:text="Agregar a favorios"
+        android:text="Editar mi Receta"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -169,6 +169,18 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextContrastCheck" />
 
+    <Button
+        android:id="@+id/btn_agregar_favoritos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/color_primero"
+        android:text="Agregar a favoritos"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/image_view_receta"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
     <!-- Fase dos-->
 
     <TextView

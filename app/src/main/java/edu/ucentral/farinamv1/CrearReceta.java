@@ -81,6 +81,9 @@ public class CrearReceta extends AppCompatActivity {
     private TextView textView8;
     private Button btnCrearRecetaFinal;
     private Button btnRegresarReceta3;
+    private EditText txCalorias;
+    private TextView textCalorias;
+    private TextView imagenCalorias;
 
 
 
@@ -126,6 +129,9 @@ public class CrearReceta extends AppCompatActivity {
         imageView2=findViewById(R.id.imageView2);
         btnCrearRecetaFinal=findViewById(R.id.btn_crear_receta_final);
         btnRegresarReceta3=findViewById(R.id.btn_regresar_receta_3);
+        txCalorias=findViewById(R.id.txt_calorias);
+        textCalorias=findViewById(R.id.textView001);
+        imagenCalorias=findViewById(R.id.imagen_calorias);
         terceraVista(View.GONE);
 
         btnAgregarImagenRecetaF.setOnClickListener(new View.OnClickListener() {
@@ -278,6 +284,7 @@ public class CrearReceta extends AppCompatActivity {
             receta.setEnable(true);
             receta.setLike(0);
             receta.setDislike(0);
+            receta.setCalorias(txCalorias.getText().toString()+"kcal");
             StorageReference image_path = storageReference.child("recetas_imagenes").child(receta.getRecetaId()+".jpg");
             image_path.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -380,6 +387,9 @@ public class CrearReceta extends AppCompatActivity {
         textView8.setVisibility(view);
         btnCrearRecetaFinal.setVisibility(view);
         btnRegresarReceta3.setVisibility(view);
+        txCalorias.setVisibility(view);
+        textCalorias.setVisibility(view);
+        imagenCalorias.setVisibility(view);
     }
     public void agregarImagen(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -423,6 +433,10 @@ public class CrearReceta extends AppCompatActivity {
         }
         if(txTiempo.getText().toString().isEmpty()){
             txTiempo.setError("Requerido");
+            return false;
+        }
+        if(txCalorias.getText().toString().isEmpty()){
+            txCalorias.setError("Requerido");
             return false;
         }
         return true;

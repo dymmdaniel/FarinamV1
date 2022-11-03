@@ -64,6 +64,7 @@ public class FragmentoFavoritos extends Fragment {
                 Bundle result=new Bundle();
                 result.putString("recetaId",recetas.get(recyclerViewRecetas.getChildAdapterPosition(view)).getRecetaId());
                 result.putInt("Enable",0);
+                result.putInt("editable",0);
                 Fragment fragment = new FragmentoReceta();
                 fragment.setArguments(result);
                 FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
