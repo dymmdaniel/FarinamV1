@@ -132,7 +132,6 @@ public class Perfil extends AppCompatActivity {
                         usuario.setNombre(Txnombre.getText().toString());
                         usuario.setEmail(Txcorreo.getText().toString());
                         usuario.setNumero(Long.parseLong(Txtelefono.getText().toString()));
-                        usuario.setPassword(Txcontrasena.getText().toString());
                         if (validarEmail(usuario.getEmail())) {
                             user.updateEmail(usuario.getEmail()).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -144,15 +143,17 @@ public class Perfil extends AppCompatActivity {
                             });
                         }
                         if (validarContra()) {
-                            user.updatePassword(usuario.getPassword()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            user.updatePassword(Txcontrasena.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
+                                        usuario.setPassword(Txcontrasena.getText().toString());
                                         Toast.makeText(Perfil.this, "Contrasena acutalizada", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
                         }
+                        Toast.makeText(Perfil.this, usuario.toString(), Toast.LENGTH_SHORT).show();
                         databaseReference.child("Usuario").child(usuario.getUsuarioId()).setValue(usuario);
 
                     }
@@ -202,13 +203,12 @@ public class Perfil extends AppCompatActivity {
     }
 
     private boolean validarContra() {
-        if (Txcontrasena.getText().toString().isEmpty() ||
-                Txcontrasena2.getText().toString().isEmpty() ||
-                !Txcontrasena.getText().toString().equals(Txcontrasena.getText().toString())) {
-            if(!Txcontrasena.getText().toString().equals(Txcontrasena.getText().toString())){
-                Txcontrasena.setError("No coinciden");
-                Txcontrasena2.setError("No coinciden");
-            }
+        if(!Txcontrasena.getText().toString().equals(Txcontrasena2.getText().toString())){
+            Txcontrasena.setError("No coinciden");
+            Txcontrasena2.setError("No coinciden");
+            return false;
+        }
+        if (Txcontrasena.getText().toString().isEmpty() || Txcontrasena2.getText().toString().isEmpty()) {
             return false;
         }
         return true;

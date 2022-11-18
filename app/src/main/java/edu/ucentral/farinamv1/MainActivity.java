@@ -56,6 +56,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import edu.ucentral.farinamv1.Fragmentos.FragmentoCuenta;
 import edu.ucentral.farinamv1.Fragmentos.FragmentoDirectorio;
 import edu.ucentral.farinamv1.Fragmentos.FragmentoFavoritos;
+import edu.ucentral.farinamv1.Fragmentos.FragmentoListaCompras;
 import edu.ucentral.farinamv1.Fragmentos.FragmentoMain;
 import edu.ucentral.farinamv1.Fragmentos.FragmentoMiLista;
 import edu.ucentral.farinamv1.Fragmentos.FragmentoNotificaciones;
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FragmentoFavoritos fragmentoFavoritos;
     private FragmentoDirectorio fragmentoDirectorio;
     private FragmentoMiLista fragmentoMiLista;
+    private FragmentoListaCompras fragmentoListaCompras;
     private NotificationCompat.Builder notificacionGlobal;
     private static final int idUnica=51623;
 
@@ -147,23 +149,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentoFavoritos=new FragmentoFavoritos();
         fragmentoDirectorio=new FragmentoDirectorio();
         fragmentoMiLista=new FragmentoMiLista();
+        fragmentoListaCompras=new FragmentoListaCompras();
 
         mainBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.bottom_inicio:
+                        btn_crear_receta.setVisibility(View.VISIBLE);
                         replaceFragment(fragmentoMain);
                         progressBarBusqueda.setVisibility(View.GONE);
                         image_view_fondo.setVisibility(View.GONE);
                         return true;
                     case R.id.bottom_notificaciones:
+                        btn_crear_receta.setVisibility(View.VISIBLE);
                         Bundle result=new Bundle();
                         result.putString("usuarioId",mAuth.getCurrentUser().getUid());
                         fragmentoNotificaciones.setArguments(result);
                         replaceFragment(fragmentoNotificaciones);
                         return true;
                     case R.id.bottom_perfil:
+                        btn_crear_receta.setVisibility(View.VISIBLE);
                         replaceFragment(fragmentoCuenta);
                         return true;
                     default:
@@ -229,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             perfil();
         }
         else if (id == R.id.nav_favoritos) {
+            btn_crear_receta.setVisibility(View.VISIBLE);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             Bundle result=new Bundle();
             result.putString("usuarioId",mAuth.getCurrentUser().getUid());
@@ -237,6 +244,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
         else if (id == R.id.nav_lista) {
+            btn_crear_receta.setVisibility(View.VISIBLE);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             Bundle result=new Bundle();
             result.putString("usuarioId",mAuth.getCurrentUser().getUid());
@@ -247,10 +255,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else if (id == R.id.nav_cronometro) {
             viewCronometro();
         }
+        else if(id == R.id.nav_lista_compras){
+            btn_crear_receta.setVisibility(View.GONE);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            Bundle result=new Bundle();
+            result.putString("usuarioId",mAuth.getCurrentUser().getUid());
+            fragmentoListaCompras.setArguments(result);
+            replaceFragment(fragmentoListaCompras);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        }
         else if(id == R.id.nav_agregar_receta){
             viewReceta();
         }
         else if(id==R.id.nav_directorio){
+            btn_crear_receta.setVisibility(View.VISIBLE);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             replaceFragment(fragmentoDirectorio);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);

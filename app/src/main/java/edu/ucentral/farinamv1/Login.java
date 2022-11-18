@@ -1,6 +1,7 @@
 package edu.ucentral.farinamv1;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,6 +20,14 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+
+import edu.ucentral.farinamv1.model.Usuario;
 
 public class Login extends AppCompatActivity {
 
@@ -28,9 +37,12 @@ public class Login extends AppCompatActivity {
     private EditText Txcorreo;
     private EditText Txcontrasena;
     private ProgressBar barraProgreso;
+    private boolean esTienda=false;
 
 
     private FirebaseAuth mAuth;
+    private DatabaseReference databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +58,8 @@ public class Login extends AppCompatActivity {
         btnOlvidar=findViewById(R.id.btn_olvidar);
 
         barraProgreso.setVisibility(View.INVISIBLE);
+
+        iniciarFirebase();
 
 
         btnRegistrarme.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +80,12 @@ public class Login extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                viewMain();
+                                MainTienda(mAuth.getCurrentUser().getUid());
+                                if(esTienda){
+                                    viewMainTienda();
+                                }else{
+                                    viewMain();
+                                }
                             }else{
                                 String error = task.getException().getMessage();
                                 if(error.equals("The email address is badly formatted.")){
@@ -97,9 +116,44 @@ public class Login extends AppCompatActivity {
         });
 
     }
+    public boolean MainTienda(String usuarioId){
+        databaseReference.child("Usuario").orderByChild("usuarioId").equalTo(usuarioId).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Usuario usuario = snapshot.getValue(Usuario.class);
+                if(usuario.isTienda()){
+                    esTienda=true;
+                }else{
+                    esTienda=false;
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return false;
+    }
     public boolean iniciarSesion(){
         return true;
     }
+
     public boolean validar(String correo,String contrasena){
         int cont=0;
         if(TextUtils.isEmpty(correo)){
@@ -124,6 +178,11 @@ public class Login extends AppCompatActivity {
         startActivity(intent);
         finish(); // terminar esta view
     }
+    public void viewMainTienda(){
+        Intent intent = new Intent(Login.this,Tienda.class);
+        startActivity(intent);
+        finish(); // terminar esta view
+    }
     public void viewContra(){
         Intent intent = new Intent(Login.this,OlvidarContra.class);
         startActivity(intent);
@@ -141,6 +200,11 @@ public class Login extends AppCompatActivity {
     @Override
     public void onBackPressed (){
         // Para que bloquee el boton de devolver
+    }
+
+    public void iniciarFirebase(){
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference= FirebaseDatabase.getInstance().getReference();
     }
 
 }

@@ -9,6 +9,7 @@ public class Usuario {
     private String password;
     private String role;
     private String image;
+    private boolean isTienda;
 
     public String getUsuarioId() {
         return usuarioId;
@@ -66,12 +67,24 @@ public class Usuario {
         this.image = image;
     }
 
+    public boolean isTienda() {
+        return isTienda;
+    }
+
+    public void setTienda(boolean tienda) {
+        isTienda = tienda;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
-                "nombre='" + nombre + '\'' +
+                "usuarioId='" + usuarioId + '\'' +
+                ", nombre='" + nombre + '\'' +
                 ", numero=" + numero +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

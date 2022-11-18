@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,6 +37,7 @@ public class RegistroUsuario extends AppCompatActivity {
     private EditText txt_registro_nombre;
     private Button btn_registrarme_primary;
     private ProgressBar progressBarRegistro;
+    private Switch swEsTienda;
 
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
@@ -58,6 +60,7 @@ public class RegistroUsuario extends AppCompatActivity {
         txt_registro_contrasena=findViewById(R.id.txt_registro_contrasena);
         btn_registrarme_primary=findViewById(R.id.btn_registrarme_primary);
         progressBarRegistro=findViewById(R.id.progressBarRegistro);
+        swEsTienda=findViewById(R.id.sw_tienda);
         progressBarRegistro.setVisibility(View.GONE);
 
 
@@ -82,13 +85,12 @@ public class RegistroUsuario extends AppCompatActivity {
                                 usuario.setImage("");
                                 usuario.setPassword(txt_registro_contrasena.getText().toString());
                                 usuario.setRole("USER");
-
+                                usuario.setTienda(swEsTienda.isChecked());
                                 Favoritos favoritos=new Favoritos();
                                 favoritos.setUsuarioId(usuario.getUsuarioId());
                                 favoritos.setRecetas(null);
                                 databaseReference.child("Favoritos").child(usuario.getUsuarioId()).setValue(favoritos);
                                 databaseReference.child("Usuario").child(usuario.getUsuarioId()).setValue(usuario);
-
                                 error="Se creó la cuenta correctamente, por favor ingrese";
 
                             }else{

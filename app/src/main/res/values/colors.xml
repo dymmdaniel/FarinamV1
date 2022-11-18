@@ -19,6 +19,7 @@
 
 
     <color name="background">#3C3C3C</color>
+    <color name="color_red">#FF0000</color>
 
 
     <color name="purple_200">#FFBB86FC</color>

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sw_es_tienda"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
@@ -13,7 +14,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="373dp"
         android:layout_height="24dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         android:indeterminate="true"
         android:indeterminateTint="@color/color_primero"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,9 +23,9 @@
 
     <ImageView
         android:id="@+id/farinam_logo2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_width="141dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="48dp"
         android:contentDescription="@string/logo_farinam"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +104,7 @@
         android:id="@+id/txt_registro_contrasena_2"
         android:layout_width="334dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="68dp"
         android:autofillHints=""
         android:background="@drawable/campo_login"
         android:ems="10"
@@ -114,7 +115,7 @@
         android:textColorHint="@color/color_cuarto"
         app:layout_constraintBottom_toTopOf="@+id/btn_registrarme_primary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -142,5 +143,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/sw_tienda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Eres Una tienda?"
+        android:textColor="@color/color_cuarto"
+        app:layout_constraintBottom_toTopOf="@+id/btn_registrarme_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_registro_contrasena_2"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,13 @@
 package edu.ucentral.farinamv1.Fragmentos;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -70,6 +72,7 @@ public class FragmentoReceta extends Fragment {
     private TextView pasos;
     private Button btnAgregarFavoritos;
     private Button btnEditarReceta;
+    private Button btnEliminarReceta;
 
     private TextView texView11;
     private TextView texView14;
@@ -117,12 +120,15 @@ public class FragmentoReceta extends Fragment {
         texView20 = view.findViewById(R.id.textView20);
         btnAgregarFavoritos = view.findViewById(R.id.btn_agregar_favoritos);
         btnEditarReceta = view.findViewById(R.id.btn_editar_receta);
+        btnEliminarReceta=view.findViewById(R.id.btn_eliminar_receta);
+        btnEliminarReceta.setVisibility(View.GONE);
         btnEditarReceta.setVisibility(View.GONE);
         if(enable==0){
             btnAgregarFavoritos.setVisibility(View.GONE);
         }
         if(editable==1){
             btnEditarReceta.setVisibility(View.VISIBLE);
+            btnEliminarReceta.setVisibility(View.VISIBLE);
         }
         primerView(View.GONE);
         siguiete.setOnClickListener(new View.OnClickListener() {
@@ -149,6 +155,12 @@ public class FragmentoReceta extends Fragment {
             @Override
             public void onClick(View view) {
                 editarReceta(recetaId);
+            }
+        });
+        btnEliminarReceta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                eliminarReceta(recetaId);
             }
         });
         cargarDatos(recetaId, view);
@@ -296,6 +308,51 @@ public class FragmentoReceta extends Fragment {
         });
     }
 
+    public void eliminarReceta(String recetaId){
+        AlertDialog.Builder dialogo1 = new AlertDialog.Builder(getContext());
+        dialogo1.setTitle("Eliminar Receta");
+        dialogo1.setMessage("¿Estas seguro que deseas eliminar tu receta "+titulo.getText()+"?");
+        dialogo1.setCancelable(true);
+        dialogo1.setPositiveButton("Si, Eliminar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                databaseReference.child("Receta").orderByChild("recetaId").equalTo(recetaId).addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        snapshot.getRef().removeValue();
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                Toast.makeText(getContext(),"Receta eliminada con extio",Toast.LENGTH_SHORT).show();
+                viewMain();
+            }
+        });
+        dialogo1.setNegativeButton("No, regresar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                //No hacer nada xd
+            }
+        });
+        dialogo1.show();
+    }
+
     public void segundaView(int view) {
         imagenViewReceta.setVisibility(view);
         titulo.setVisibility(view);
@@ -316,6 +373,11 @@ public class FragmentoReceta extends Fragment {
         listViewIngredientes.setVisibility(view);
         texView20.setVisibility(view);
         regresar.setVisibility(view);
+    }
+
+    private void viewMain() {
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
     }
 
     public void iniciarFirebase() {

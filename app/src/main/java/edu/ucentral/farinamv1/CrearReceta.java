@@ -100,6 +100,9 @@ public class CrearReceta extends AppCompatActivity {
     private Uri uri;
     private boolean editable=false;
     private String editableRecetaId;
+    private String editableUsuarioId;
+    private String editableUsuarioNombre;
+    private String editableImagen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -250,13 +253,15 @@ public class CrearReceta extends AppCompatActivity {
             Receta receta=new Receta();
             if(editable){
                 receta.setRecetaId(editableRecetaId);
+                receta.setUsuarioId(editableUsuarioId);
+                receta.setUsuarioNombre(editableUsuarioNombre);
             }else {
                 receta.setRecetaId(UUID.randomUUID().toString());
                 receta.setValoracion(0);
                 receta.setLike(0);
                 receta.setDislike(0);
             }
-            receta.setTitulo(txNombreReceta.getText().toString());
+
             databaseReference.child("Usuario").orderByChild("usuarioId").equalTo(mAuth.getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -285,6 +290,7 @@ public class CrearReceta extends AppCompatActivity {
 
                 }
             });
+            receta.setTitulo(txNombreReceta.getText().toString());
             receta.setCategoriaId(spinnerCategoria.getSelectedItem().toString());
             receta.setDificultad(dificultad.getRating());
             receta.setDescripcion(txDescripcion.getText().toString());
@@ -316,14 +322,19 @@ public class CrearReceta extends AppCompatActivity {
                     }
                 });
             }else{
-                databaseReference.child("Receta").child(receta.getRecetaId()).setValue(receta);
+                receta.setImage("");
             }
-            Snackbar.make(
-                    findViewById(R.id.text_view_crear),
-                    "Se ha creado tu receta.",
-                    BaseTransientBottomBar.LENGTH_SHORT
-            ).show();
-            viewMain();
+            if(editable){
+                Toast.makeText(CrearReceta.this,"La receta "+receta.getTitulo()+" se ha editado correctamente",Toast.LENGTH_SHORT).show();
+            }else{
+                Snackbar.make(
+                        findViewById(R.id.text_view_crear),
+                        "Se ha creado tu receta.",
+                        BaseTransientBottomBar.LENGTH_SHORT
+                ).show();
+                viewMain();
+            }
+            databaseReference.child("Receta").child(receta.getRecetaId()).setValue(receta);
         }else{
             Snackbar.make(
                     findViewById(R.id.text_view_crear),
@@ -527,7 +538,9 @@ public class CrearReceta extends AppCompatActivity {
 
                     dificultad.setRating((float) receta.getDificultad());
                     txDescripcion.setText(receta.getDescripcion());
+
                     ingredientes=receta.getIngredient();
+
                     ingredienteArrayAdapter = new ArrayAdapter<Ingrediente>(CrearReceta.this,R.layout.simple_list_delete,ingredientes);
                     listViewIngredientes.setAdapter(ingredienteArrayAdapter);
                     txPasos.setText(receta.getPasos());
@@ -535,6 +548,9 @@ public class CrearReceta extends AppCompatActivity {
                     String calorias=receta.getCalorias();
                     calorias=calorias.substring(0,calorias.length()-4);
                     txCalorias.setText(calorias);
+                    editableUsuarioId=receta.getUsuarioId();
+                    editableUsuarioNombre=receta.getUsuarioNombre();
+                    editableImagen=receta.getImage();
                 }
 
                 @Override

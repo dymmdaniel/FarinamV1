@@ -19,13 +19,11 @@
         android:id="@+id/txt_receta_titulo"
         android:layout_width="142dp"
         android:layout_height="22dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="76dp"
         android:text="Titulo"
         android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.325"
-        app:layout_constraintStart_toEndOf="@+id/image_view_receta"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -230,6 +228,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_eliminar_receta"
+        android:layout_width="46dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="12dp"
+        android:background="@color/color_red"
+        android:text="X"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_editar_receta"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <!-- Fin fase dos-->
 </androidx.constraintlayout.widget.ConstraintLayout>
